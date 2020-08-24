@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "7f36740b-f7c7-4cc9-98d5-192bf60b0021",
+		"name": "Employee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bb74aba-5191-4a7c-a491-c1fe7c6e5848",
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"const token = responseJson.token;",
+							"",
+							"pm.collectionVariables.set('token', token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/Authentication",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Employees",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/Employee",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Invalid Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9543c02c-9b82-4df3-99f1-5e5a82f871a5",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ali\",\n    \"address\": {\n        \"city\": \"Irvine\",\n        \"address1\": \"2020 Spectrum\",\n        \"state\": \"california\",\n        \"zipCode\": 92618\n    },\n    \"role\": \"Software Engineer\",\n    \"department\": \"IT\",\n    \"skillSets\": \"C#, Java, Python, Backend development\",\n    \"dateOfBirth\": \"2012-03-19T07:22Z\",\n    \"dateOfHire\": \"2012-03-19T07:22Z\",\n    \"isActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/Employee",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Valid Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0b82c71-e408-4b42-a7e1-a73d1c430318",
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"const token = responseJson.id;",
+							"",
+							"pm.collectionVariables.set('lastCreatedEmployeeId', token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ali\",\n    \"address\": {\n        \"city\": \"Irvine\",\n        \"address1\": \"2020 Spectrum\",\n        \"state\": \"california\",\n        \"zipCode\": 92618\n    },\n    \"role\": \"Software Engineer\",\n    \"department\": \"IT\",\n    \"skillSets\": \"C#, Java, Python, Backend development\",\n    \"dateOfBirth\": \"1984-03-19T07:22Z\",\n    \"dateOfHire\": \"2020-10-01T07:22Z\",\n    \"isActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/Employee",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/Employee/{{lastCreatedEmployeeId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Employee",
+						"{{lastCreatedEmployeeId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "35185af5-7440-43fe-9c0c-3c7d2b19e9a7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4c5f6b1d-89d6-47e9-87b8-a8ffb6a70211",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "01e80f5e-3e97-4f9e-90d1-f2ce54e0601c",
+			"key": "host",
+			"value": "https://cuemployeeapi.azurewebsites.net/"
+		},
+		{
+			"id": "e7292072-7cf5-4fec-98da-7c0a6fe4c25d",
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmZjlkZjgwYy1jZmQyLTRjZDEtODA0YS1mNDEwZWMzMDE5NjYiLCJzdWIiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBbGkgU2hlbWlyYW5pIiwianRpIjoiY2I0MDFjOTItNDRkOC00ZDIzLTg0NTQtZDhiZTNjMTEyZTZkIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE1OTgyNTIyNTIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMS8ifQ.-qkKrSqXZhoJRfSPa_dJO4hGVIyWo75BEap_jDWwAxk"
+		},
+		{
+			"id": "4c1215db-352a-4db8-a43e-2ec3a36cd370",
+			"key": "lastCreatedEmployeeId",
+			"value": "5037662b-263c-491e-b402-1270f29387b3"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
