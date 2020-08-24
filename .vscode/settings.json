@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/6ba7012d-18de-46e4-a0f4-6d202671cd59/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/cuemployeeapi",
+    "appService.deploySubpath": "./EmployeeApi"
+}
