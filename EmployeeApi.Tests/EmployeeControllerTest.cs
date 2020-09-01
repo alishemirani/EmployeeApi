@@ -21,7 +21,7 @@ namespace EmployeeApi.Tests
         private Guid userId = Guid.NewGuid();
         private Employee validEmployee;
         private FullEmployeeDTO validEmployeeDTO;
-        private EmployeeController controller;
+        private EmployeesController controller;
 
         public EmployeeControllerTest() {
 
@@ -40,7 +40,7 @@ namespace EmployeeApi.Tests
             mapper.Setup(t=> t.Map<FullEmployeeDTO>(It.IsAny<Employee>()))
             .Returns((Employee e) => validEmployeeDTO);
             
-            controller = new EmployeeController(mapper.Object, employeeService.Object);
+            controller = new EmployeesController(mapper.Object, employeeService.Object);
             controller.ControllerContext = new ControllerContext()
             {
                 HttpContext = new DefaultHttpContext() { User = user }
