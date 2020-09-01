@@ -15,11 +15,11 @@ namespace EmployeeApi.Controllers
     [ApiController]
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
-    public class UserController : ControllerBase {
+    public class UsersController : ControllerBase {
        private readonly IMapper mapper;
         private readonly IUserService userService;
 
-        public UserController(
+        public UsersController(
             IMapper mapper,
             IUserService userService
             )

@@ -13,7 +13,7 @@ namespace EmployeeApi.Validations
                 .GreaterThanOrEqualTo(DateTime.Now.Date);
 
             RuleFor(t => t.Name)
-                .MinimumLength(1)
+                .MinimumLength(3)
                 .MaximumLength(150);
         }
     }

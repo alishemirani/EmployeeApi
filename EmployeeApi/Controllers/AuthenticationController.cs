@@ -33,7 +33,7 @@ namespace EmployeeApi.Controllers {
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(AuthResponseDTO), 200)]
         [ProducesResponseType(401)]
         public async Task<IActionResult> Login([FromBody]LoginModelDTO loginModel) {
             
@@ -43,8 +43,8 @@ namespace EmployeeApi.Controllers {
             }
             var tokenConfig = configuration.GetSection("Jwt").Get<TokenConfig>();
             string token = JwtTokenProvider.GenerateToken(tokenConfig, user);
-            return Ok(new {
-                token = token
+            return Ok(new AuthResponseDTO {
+                Token = token
             });
         }
     }

@@ -38,6 +38,18 @@ namespace EmployeeApi
         {
             IdentityModelEventSource.ShowPII = true;
             
+            var corsOrigin = Configuration.GetValue<string>("Cors");
+            services.AddCors(options =>
+            {
+                options.AddPolicy("allowedOrigins",
+                                builder =>
+                                {
+                                    builder.WithOrigins(corsOrigin)
+                                                        .AllowAnyHeader()
+                                                        .AllowAnyMethod();
+                                });
+            });
+
             services.AddControllers()
                 .AddFluentValidation(fv => {
                     fv.ImplicitlyValidateChildProperties = true;
@@ -153,6 +165,7 @@ namespace EmployeeApi
 
             app.UseRouting();
 
+            app.UseCors("allowedOrigins");
             app.UseAuthentication();
             app.UseAuthorization();
 

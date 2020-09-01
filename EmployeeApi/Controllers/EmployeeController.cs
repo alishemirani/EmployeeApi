@@ -16,12 +16,12 @@ namespace EmployeeApi.Controllers
     [ApiController]
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IEmployeeService employeeService;
 
-        public EmployeeController(
+        public EmployeesController(
             IMapper mapper,
             IEmployeeService employeeService
             )
